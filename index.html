@@ -1,0 +1,1883 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroDrones VI - La Nueva Era de la Agricultura</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.9) 100%),
+                        url('https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .hero-logo {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .logo-text {
+            font-size: 6rem;
+            font-weight: 900;
+            letter-spacing: -3px;
+            background: linear-gradient(180deg, #00ff66 0%, #00cc52 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            text-shadow: 0 0 50px rgba(0,255,100,0.8);
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes logoGlow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(0,255,100,0.5)); }
+            50% { filter: drop-shadow(0 0 40px rgba(0,255,100,0.8)); }
+        }
+
+        .hero-tagline {
+            font-size: 1.3rem;
+            color: #00ff66;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            font-weight: 300;
+            margin-bottom: 60px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            color: #00ff66;
+            letter-spacing: 3px;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Character Section */
+        .character-section {
+            padding: 120px 5%;
+            background: #000;
+            position: relative;
+        }
+
+        .character-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            max-width: 1600px;
+            margin: 0 auto 100px;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .character-grid.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .character-image {
+            position: relative;
+            height: 600px;
+            background: linear-gradient(135deg, #001a0d 0%, #003d1a 100%);
+            overflow: hidden;
+        }
+
+        .character-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .character-image:hover img {
+            transform: scale(1.1);
+        }
+
+        .color-picker {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+            background: rgba(0,0,0,0.8);
+            padding: 15px 25px;
+            border-radius: 30px;
+            border: 1px solid #00ff66;
+        }
+
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .color-option:hover {
+            border-color: #00ff66;
+            transform: scale(1.2);
+        }
+
+        .color-option.active {
+            border-color: #00ff66;
+            box-shadow: 0 0 20px rgba(0,255,100,0.6);
+        }
+
+        .character-content {
+            padding: 60px 80px;
+            background: linear-gradient(90deg, #000 0%, #001a0d 100%);
+        }
+
+        .character-name {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #00ff66;
+            margin-bottom: 30px;
+            letter-spacing: -2px;
+        }
+
+        .character-quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: #00cc52;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            border-left: 3px solid #00ff66;
+            padding-left: 20px;
+        }
+
+        .character-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #999;
+            margin-bottom: 20px;
+        }
+
+        .character-highlight {
+            font-size: 1.2rem;
+            color: #00ff66;
+            font-weight: 600;
+            margin: 30px 0;
+        }
+
+        /* Comparison Section */
+        .comparison-section {
+            background: linear-gradient(180deg, #000 0%, #001a0d 50%, #000 100%);
+            padding: 120px 5%;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            text-align: center;
+            color: #00ff66;
+            font-weight: 900;
+            margin-bottom: 80px;
+            letter-spacing: -1px;
+        }
+
+        .comparison-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(0,26,13,0.3);
+            border: 1px solid #00ff66;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .comparison-selector {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 40px;
+            background: rgba(0,0,0,0.5);
+            flex-wrap: wrap;
+        }
+
+        .drone-selector {
+            padding: 15px 30px;
+            background: transparent;
+            border: 2px solid #00ff66;
+            color: #00ff66;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .drone-selector:hover {
+            background: #00ff66;
+            color: #000;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,255,100,0.4);
+        }
+
+        .drone-selector.active {
+            background: #00ff66;
+            color: #000;
+        }
+
+        .comparison-table {
+            padding: 60px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #00ff66;
+            color: #000;
+            padding: 20px;
+            font-size: 1.3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        td {
+            padding: 25px 20px;
+            border-bottom: 1px solid rgba(0,255,100,0.2);
+            color: #999;
+            font-size: 1.1rem;
+        }
+
+        tr:hover td {
+            background: rgba(0,255,100,0.05);
+            color: #fff;
+        }
+
+        .spec-label {
+            color: #00ff66;
+            font-weight: 700;
+        }
+
+        .spec-value {
+            text-align: center;
+        }
+
+        .spec-highlight {
+            color: #00ff66;
+            font-weight: 700;
+        }
+
+        /* Interactive Features */
+        .features-banner {
+            background: linear-gradient(90deg, #001a0d 0%, #003d1a 50%, #001a0d 100%);
+            padding: 100px 5%;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .feature-item {
+            background: rgba(0,0,0,0.5);
+            padding: 40px;
+            border: 1px solid rgba(0,255,100,0.3);
+            border-radius: 15px;
+            transition: all 0.4s;
+            cursor: pointer;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-10px);
+            border-color: #00ff66;
+            box-shadow: 0 20px 50px rgba(0,255,100,0.3);
+            background: rgba(0,26,13,0.5);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #00ff66, #00cc52);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            transition: all 0.3s;
+        }
+
+        .feature-item:hover .feature-icon {
+            transform: rotate(360deg);
+            box-shadow: 0 10px 30px rgba(0,255,100,0.5);
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            color: #00ff66;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .feature-text {
+            color: #999;
+            line-height: 1.6;
+        }
+
+        /* Product Gallery */
+        .gallery-section {
+            padding: 120px 5%;
+            background: #000;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            border: 1px solid #00ff66;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.2);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.95) 100%);
+            padding: 30px;
+            transform: translateY(100%);
+            transition: transform 0.4s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-title {
+            font-size: 1.8rem;
+            color: #00ff66;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .gallery-description {
+            color: #999;
+        }
+
+        /* 3D Configurator Section */
+        .configurator-section {
+            background: linear-gradient(180deg, #000 0%, #001a0d 50%, #000 100%);
+            padding: 120px 5%;
+            position: relative;
+        }
+
+        .configurator-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .drone-viewer {
+            position: sticky;
+            top: 100px;
+            background: linear-gradient(135deg, rgba(0,26,13,0.3), rgba(0,61,26,0.3));
+            border: 2px solid #00ff66;
+            border-radius: 20px;
+            padding: 40px;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .drone-3d-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+        }
+
+        .drone-3d {
+            width: 400px;
+            height: 400px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+            cursor: grab;
+        }
+
+        .drone-3d:active {
+            cursor: grabbing;
+        }
+
+        .drone-3d img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 40px rgba(0,255,100,0.3));
+        }
+
+        .drone-info-display {
+            text-align: center;
+            margin-top: 30px;
+            width: 100%;
+        }
+
+        .drone-model-name {
+            font-size: 2.5rem;
+            color: #00ff66;
+            font-weight: 900;
+            margin-bottom: 15px;
+        }
+
+        .drone-price-display {
+            font-size: 3rem;
+            color: #00ff66;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .rotation-hint {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .configurator-controls {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid #00ff66;
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .control-group {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(0,255,100,0.2);
+        }
+
+        .control-group:last-child {
+            border-bottom: none;
+        }
+
+        .control-label {
+            font-size: 1.5rem;
+            color: #00ff66;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .model-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .model-option {
+            background: rgba(0,26,13,0.5);
+            border: 2px solid rgba(0,255,100,0.3);
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .model-option:hover {
+            border-color: #00ff66;
+            background: rgba(0,61,26,0.5);
+            transform: translateY(-3px);
+        }
+
+        .model-option.active {
+            border-color: #00ff66;
+            background: rgba(0,255,100,0.1);
+            box-shadow: 0 0 20px rgba(0,255,100,0.3);
+        }
+
+        .model-option-name {
+            font-size: 1.1rem;
+            color: #00ff66;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .model-option-price {
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .color-selector-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .color-selector-item {
+            text-align: center;
+        }
+
+        .color-selector {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .color-selector:hover {
+            border-color: #00ff66;
+            transform: scale(1.2);
+        }
+
+        .color-selector.active {
+            border-color: #00ff66;
+            box-shadow: 0 0 25px rgba(0,255,100,0.6);
+        }
+
+        .color-selector.active::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .color-name {
+            font-size: 0.85rem;
+            color: #999;
+            margin-top: 8px;
+        }
+
+        .accessory-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .accessory-item {
+            background: rgba(0,26,13,0.3);
+            border: 2px solid rgba(0,255,100,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .accessory-item:hover {
+            border-color: #00ff66;
+            background: rgba(0,61,26,0.3);
+        }
+
+        .accessory-item.selected {
+            border-color: #00ff66;
+            background: rgba(0,255,100,0.1);
+        }
+
+        .accessory-info {
+            flex: 1;
+        }
+
+        .accessory-name {
+            font-size: 1.1rem;
+            color: #00ff66;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .accessory-description {
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .accessory-price {
+            font-size: 1.3rem;
+            color: #00ff66;
+            font-weight: 700;
+            margin-right: 20px;
+        }
+
+        .accessory-checkbox {
+            width: 24px;
+            height: 24px;
+            accent-color: #00ff66;
+            cursor: pointer;
+        }
+
+        .config-summary {
+            background: linear-gradient(135deg, rgba(0,61,26,0.5), rgba(0,26,13,0.5));
+            border: 2px solid #00ff66;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .summary-title {
+            font-size: 1.5rem;
+            color: #00ff66;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0,255,100,0.2);
+            color: #999;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+            padding-top: 20px;
+            margin-top: 10px;
+            border-top: 2px solid #00ff66;
+        }
+
+        .summary-item.total {
+            font-size: 1.8rem;
+            color: #00ff66;
+            font-weight: 900;
+        }
+
+        .configure-button {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, #00ff66, #00cc52);
+            color: #000;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .configure-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,255,100,0.5);
+        }
+
+        .configure-button:active {
+            transform: translateY(-1px);
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 60px 5%;
+            text-align: center;
+            border-top: 1px solid #00ff66;
+        }
+
+        .footer-logo {
+            font-size: 2.5rem;
+            color: #00ff66;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .footer-text {
+            color: #666;
+            margin: 10px 0;
+        }
+
+        @media (max-width: 1024px) {
+            .configurator-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .drone-viewer {
+                position: relative;
+                top: 0;
+            }
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            background: linear-gradient(180deg, #001a0d 0%, #000 50%, #001a0d 100%);
+            padding: 120px 5%;
+            position: relative;
+        }
+
+        .testimonials-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .testimonial-card {
+            background: linear-gradient(135deg, rgba(0,26,13,0.5), rgba(0,61,26,0.3));
+            border: 2px solid rgba(0,255,100,0.3);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-size: 120px;
+            color: rgba(0,255,100,0.1);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            border-color: #00ff66;
+            box-shadow: 0 20px 60px rgba(0,255,100,0.3);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .testimonial-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00ff66, #00cc52);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #000;
+            border: 3px solid #00ff66;
+            box-shadow: 0 5px 20px rgba(0,255,100,0.4);
+        }
+
+        .testimonial-info {
+            flex: 1;
+        }
+
+        .testimonial-name {
+            font-size: 1.4rem;
+            color: #00ff66;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .testimonial-title {
+            font-size: 0.95rem;
+            color: #999;
+            font-style: italic;
+        }
+
+        .testimonial-rating {
+            display: flex;
+            gap: 5px;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+
+        .star {
+            color: #00ff66;
+            text-shadow: 0 0 10px rgba(0,255,100,0.5);
+        }
+
+        .testimonial-text {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #ccc;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .testimonial-drone {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(0,255,100,0.1);
+            border: 1px solid #00ff66;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #00ff66;
+            font-weight: 600;
+        }
+
+        .testimonial-date {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 15px;
+            text-align: right;
+        }
+
+        .testimonials-cta {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .testimonials-cta-text {
+            font-size: 1.3rem;
+            color: #999;
+            margin-bottom: 30px;
+        }
+
+        .testimonials-button {
+            display: inline-block;
+            padding: 18px 45px;
+            background: linear-gradient(135deg, #00ff66, #00cc52);
+            color: #000;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 50px;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,255,100,0.3);
+        }
+
+        .testimonials-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0,255,100,0.5);
+        }
+
+        /* WhatsApp Float Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #fff;
+            box-shadow: 0 10px 40px rgba(37,211,102,0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 50px rgba(37,211,102,0.7);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 10px 40px rgba(37,211,102,0.5);
+            }
+            50% {
+                box-shadow: 0 10px 60px rgba(37,211,102,0.8);
+            }
+        }
+
+        .whatsapp-tooltip {
+            position: absolute;
+            right: 85px;
+            background: #fff;
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s;
+        }
+
+        .whatsapp-float:hover .whatsapp-tooltip {
+            opacity: 1;
+            right: 90px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 3rem;
+            color: #00ff66;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .logo-text { font-size: 3rem; }
+            .character-grid { grid-template-columns: 1fr; }
+            .character-content { padding: 40px; }
+            .character-name { font-size: 2.5rem; }
+            .comparison-table { padding: 20px; }
+            .gallery-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-logo">
+            <div class="logo-text">AGRODRONES VI</div>
+            <p class="hero-tagline">La Nueva Era de la Agricultura</p>
+        </div>
+        <div class="scroll-indicator" onclick="document.querySelector('.character-section').scrollIntoView({behavior: 'smooth'})">
+            EXPLORA ↓
+        </div>
+    </section>
+
+    <!-- Character Section -->
+    <section class="character-section">
+        <div class="character-grid">
+            <div class="character-image" id="drone1-image">
+                <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=800&q=80" alt="AgroX-1" id="drone1-img">
+                <div class="color-picker">
+                    <div class="color-option active" style="background: #fff" onclick="changeDroneColor('drone1', '#fff', 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=800&q=80', this)"></div>
+                    <div class="color-option" style="background: #000" onclick="changeDroneColor('drone1', '#000', 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80', this)"></div>
+                    <div class="color-option" style="background: #ff4444" onclick="changeDroneColor('drone1', '#ff4444', 'https://images.unsplash.com/photo-1579829366248-204fe8413f31?w=800&q=80', this)"></div>
+                    <div class="color-option" style="background: #00ff66" onclick="changeDroneColor('drone1', '#00ff66', 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&q=80', this)"></div>
+                </div>
+            </div>
+            <div class="character-content">
+                <h2 class="character-name">AgroX-1</h2>
+                <p class="character-quote">"La agricultura siempre ha sido un desafío. Pero cuando tienes la tecnología correcta, todo cambia."</p>
+                <p class="character-description">
+                    El AgroX-1 creció en campos pequeños, donde cada gota cuenta. Después de años perfeccionando la precisión, 
+                    encontró su lugar en cultivos medianos, haciendo lo que mejor sabe: distribuir nutrientes con exactitud militar.
+                </p>
+                <p class="character-highlight">Es hora de evolucionar tu forma de cultivar.</p>
+                <p class="character-description">
+                    Con tanque de 20L y sistema de dispersión uniforme, el AgroX-1 podría ser la mejor inversión 
+                    que hayas hecho. La pregunta es: ¿estás listo para ver resultados reales?
+                </p>
+            </div>
+        </div>
+
+        <div class="character-grid">
+            <div class="character-content">
+                <h2 class="character-name">AgroX-Pro</h2>
+                <p class="character-quote">"Lo único que importa es la precisión y la tecnología que tienes a tu favor."</p>
+                <p class="character-description">
+                    El AgroX-Pro nació para analizar. Cámara multiespectral, térmica, detección de enfermedades. 
+                    Cada vuelo es una oportunidad para optimizar, para mejorar, para dominar tus cultivos.
+                </p>
+                <p class="character-highlight">La agricultura de precisión ya no es un sueño lejano.</p>
+                <p class="character-description">
+                    Fresco de fábrica y listo para cambiar las reglas del juego, el AgroX-Pro está comprometido 
+                    con su misión: mapeo avanzado y análisis que transforman datos en resultados.
+                </p>
+            </div>
+            <div class="character-image" id="drone2-image">
+                <img src="https://images.unsplash.com/photo-1508614999368-9260051292e5?w=800&q=80" alt="AgroX-Pro" id="drone2-img">
+                <div class="color-picker">
+                    <div class="color-option active" style="background: #333" onclick="changeDroneColor('drone2', '#333', 'https://images.unsplash.com/photo-1508614999368-9260051292e5?w=800&q=80', this)"></div>
+                    <div class="color-option" style="background: #fff" onclick="changeDroneColor('drone2', '#fff', 'https://images.unsplash.com/photo-1521405924368-64c5b84bec60?w=800&q=80', this)"></div>
+                    <div class="color-option" style="background: #0066ff" onclick="changeDroneColor('drone2', '#0066ff', 'https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?w=800&q=80', this)"></div>
+                    <div class="color-option" style="background: #ffaa00" onclick="changeDroneColor('drone2', '#ffaa00', 'https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=800&q=80', this)"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="character-grid">
+            <div class="character-image" id="drone3-image">
+                <img src="https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?w=800&q=80" alt="AgroX-Elite" id="drone3-img">
+                <div class="color-picker">
+                    <div class="color-option active" style="background: #000" onclick="changeDroneColor('drone3', '#000', 'https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?w=800&q=80', this)"></div>
+                    <div class="color-option" style="background: #fff" onclick="changeDroneColor('drone3', '#fff', 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80', this)"></div>
+                    <div class="color-option" style="background: #gold" onclick="changeDroneColor('drone3', '#gold', 'https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=800&q=80', this)"></div>
+                    <div class="color-option" style="background: #00ff66" onclick="changeDroneColor('drone3', '#00ff66', 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&q=80', this)"></div>
+                </div>
+            </div>
+            <div class="character-content">
+                <h2 class="character-name">AgroX-Elite</h2>
+                <p class="character-quote">"Cuando el sol se esconde y las luces del campo se encienden, todos tienen algo que ganar."</p>
+                <p class="character-description">
+                    El AgroX-Elite es leyenda. Tanque de 40L, IA integrada, vuelo autónomo completo. 
+                    Uno de los pocos drones capaces de transformar grandes extensiones en imperios verdes.
+                </p>
+                <p class="character-highlight">Todo está en el análisis predictivo y el sistema de rociado inteligente.</p>
+                <p class="character-description">
+                    Puede parecer que solo busca eficiencia, pero es su capacidad para adaptarse a cualquier cultivo 
+                    lo que realmente lo define. Solo necesitas verlo en acción.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="comparison-section">
+        <h2 class="section-title">Compara los Modelos</h2>
+        <div class="comparison-container">
+            <div class="comparison-selector">
+                <button class="drone-selector active" onclick="showComparison('all')">Ver Todos</button>
+                <button class="drone-selector" onclick="showComparison('1-2')">X-1 vs Pro</button>
+                <button class="drone-selector" onclick="showComparison('2-3')">Pro vs Elite</button>
+                <button class="drone-selector" onclick="showComparison('1-3')">X-1 vs Elite</button>
+            </div>
+            <div class="comparison-table">
+                <table id="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Especificación</th>
+                            <th class="col-1">AgroX-1</th>
+                            <th class="col-2">AgroX-Pro</th>
+                            <th class="col-3">AgroX-Elite</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="spec-label">Capacidad de Tanque</td>
+                            <td class="spec-value col-1">20L</td>
+                            <td class="spec-value col-2">25L</td>
+                            <td class="spec-value col-3 spec-highlight">40L</td>
+                        </tr>
+                        <tr>
+                            <td class="spec-label">Autonomía de Vuelo</td>
+                            <td class="spec-value col-1">35 min</td>
+                            <td class="spec-value col-2">45 min</td>
+                            <td class="spec-value col-3 spec-highlight">60 min</td>
+                        </tr>
+                        <tr>
+                            <td class="spec-label">Precisión GPS</td>
+                            <td class="spec-value col-1">5cm</td>
+                            <td class="spec-value col-2 spec-highlight">2cm</td>
+                            <td class="spec-value col-3 spec-highlight">2cm</td>
+                        </tr>
+                        <tr>
+                            <td class="spec-label">Cámara Multiespectral</td>
+                            <td class="spec-value col-1">❌</td>
+                            <td class="spec-value col-2 spec-highlight">✅</td>
+                            <td class="spec-value col-3 spec-highlight">✅</td>
+                        </tr>
+                        <tr>
+                            <td class="spec-label">Cámara Térmica</td>
+                            <td class="spec-value col-1">❌</td>
+                            <td class="spec-value col-2 spec-highlight">✅</td>
+                            <td class="spec-value col-3 spec-highlight">✅</td>
+                        </tr>
+                        <tr>
+                            <td class="spec-label">IA Integrada</td>
+                            <td class="spec-value col-1">❌</td>
+                            <td class="spec-value col-2">Básica</td>
+                            <td class="spec-value col-3 spec-highlight">Avanzada</td>
+                        </tr>
+                        <tr>
+                            <td class="spec-label">Vuelo Autónomo</td>
+                            <td class="spec-value col-1">Semi</td>
+                            <td class="spec-value col-2">Completo</td>
+                            <td class="spec-value col-3 spec-highlight">Completo+</td>
+                        </tr>
+                        <tr>
+                            <td class="spec-label">Área de Cobertura/Hora</td>
+                            <td class="spec-value col-1">8 hectáreas</td>
+                            <td class="spec-value col-2">12 hectáreas</td>
+                            <td class="spec-value col-3 spec-highlight">20 hectáreas</td>
+                        </tr>
+                        <tr>
+                            <td class="spec-label">Análisis Predictivo</td>
+                            <td class="spec-value col-1">❌</td>
+                            <td class="spec-value col-2">❌</td>
+                            <td class="spec-value col-3 spec-highlight">✅</td>
+                        </tr>
+                        <tr>
+                            <td class="spec-label">Precio</td>
+                            <td class="spec-value col-1">$4,999</td>
+                            <td class="spec-value col-2">$8,499</td>
+                            <td class="spec-value col-3">$15,999</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Banner -->
+    <section class="features-banner">
+        <h2 class="section-title">Solo en AgroDrones</h2>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon">📡</div>
+                <h3 class="feature-title">GPS Militar</h3>
+                <p class="feature-text">Precisión hasta 2cm. Navegación exacta en cualquier condición climática.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🤖</div>
+                <h3 class="feature-title">IA Predictiva</h3>
+                <p class="feature-text">Detecta problemas antes de que sean visibles. Análisis en tiempo real.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Autonomía Elite</h3>
+                <p class="feature-text">Hasta 60 minutos de vuelo continuo. Batería de litio de última generación.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🌾</div>
+                <h3 class="feature-title">Control Total</h3>
+                <p class="feature-text">Monitoreo desde tu smartphone. Datos en la nube, acceso desde cualquier lugar.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3D Configurator Section -->
+    <section class="configurator-section" id="configurator">
+        <h2 class="section-title">Configura Tu Drone Perfecto</h2>
+        <div class="configurator-container">
+            <!-- 3D Viewer -->
+            <div class="drone-viewer">
+                <div class="drone-3d-container">
+                    <div class="drone-3d" id="drone3d">
+                        <img id="drone3dImage" src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=800&q=80" alt="Drone 3D">
+                    </div>
+                </div>
+                <div class="drone-info-display">
+                    <div class="drone-model-name" id="displayModel">AgroX-1</div>
+                    <div class="drone-price-display" id="displayPrice">$4,999</div>
+                    <div class="rotation-hint">🖱️ Arrastra para rotar | 🎨 Personaliza abajo</div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="configurator-controls">
+                <!-- Model Selection -->
+                <div class="control-group">
+                    <div class="control-label">1. Selecciona Tu Modelo</div>
+                    <div class="model-options">
+                        <div class="model-option active" onclick="selectModel('x1', 4999, 'AgroX-1', 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=800&q=80')">
+                            <div class="model-option-name">AgroX-1</div>
+                            <div class="model-option-price">$4,999</div>
+                        </div>
+                        <div class="model-option" onclick="selectModel('pro', 8499, 'AgroX-Pro', 'https://images.unsplash.com/photo-1508614999368-9260051292e5?w=800&q=80')">
+                            <div class="model-option-name">AgroX-Pro</div>
+                            <div class="model-option-price">$8,499</div>
+                        </div>
+                        <div class="model-option" onclick="selectModel('elite', 15999, 'AgroX-Elite', 'https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?w=800&q=80')">
+                            <div class="model-option-name">AgroX-Elite</div>
+                            <div class="model-option-price">$15,999</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Color Selection -->
+                <div class="control-group">
+                    <div class="control-label">2. Elige Tu Color</div>
+                    <div class="color-selector-group">
+                        <div class="color-selector-item">
+                            <div class="color-selector active" style="background: linear-gradient(135deg, #fff, #e0e0e0)" 
+                                 onclick="selectColor(this, 'Blanco Ártico', 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=800&q=80')"></div>
+                            <div class="color-name">Blanco Ártico</div>
+                        </div>
+                        <div class="color-selector-item">
+                            <div class="color-selector" style="background: linear-gradient(135deg, #1a1a1a, #000)" 
+                                 onclick="selectColor(this, 'Negro Stealth', 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80')"></div>
+                            <div class="color-name">Negro Stealth</div>
+                        </div>
+                        <div class="color-selector-item">
+                            <div class="color-selector" style="background: linear-gradient(135deg, #00ff66, #00cc52)" 
+                                 onclick="selectColor(this, 'Verde Neón', 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&q=80')"></div>
+                            <div class="color-name">Verde Neón</div>
+                        </div>
+                        <div class="color-selector-item">
+                            <div class="color-selector" style="background: linear-gradient(135deg, #ff4444, #cc0000)" 
+                                 onclick="selectColor(this, 'Rojo Deportivo', 'https://images.unsplash.com/photo-1579829366248-204fe8413f31?w=800&q=80')"></div>
+                            <div class="color-name">Rojo Deportivo</div>
+                        </div>
+                        <div class="color-selector-item">
+                            <div class="color-selector" style="background: linear-gradient(135deg, #0066ff, #0044cc)" 
+                                 onclick="selectColor(this, 'Azul Cielo', 'https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?w=800&q=80')"></div>
+                            <div class="color-name">Azul Cielo</div>
+                        </div>
+                        <div class="color-selector-item">
+                            <div class="color-selector" style="background: linear-gradient(135deg, #ffaa00, #ff8800)" 
+                                 onclick="selectColor(this, 'Naranja Solar', 'https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=800&q=80')"></div>
+                            <div class="color-name">Naranja Solar</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accessories -->
+                <div class="control-group">
+                    <div class="control-label">3. Agrega Accesorios</div>
+                    <div class="accessory-list">
+                        <div class="accessory-item" onclick="toggleAccessory(this, 1200, 'extra-battery')">
+                            <div class="accessory-info">
+                                <div class="accessory-name">🔋 Batería Extra</div>
+                                <div class="accessory-description">Duplica tu autonomía de vuelo</div>
+                            </div>
+                            <div class="accessory-price">+$1,200</div>
+                            <input type="checkbox" class="accessory-checkbox" id="extra-battery">
+                        </div>
+                        <div class="accessory-item" onclick="toggleAccessory(this, 2500, 'camera-upgrade')">
+                            <div class="accessory-info">
+                                <div class="accessory-name">📷 Cámara 4K Mejorada</div>
+                                <div class="accessory-description">Calidad de imagen profesional</div>
+                            </div>
+                            <div class="accessory-price">+$2,500</div>
+                            <input type="checkbox" class="accessory-checkbox" id="camera-upgrade">
+                        </div>
+                        <div class="accessory-item" onclick="toggleAccessory(this, 800, 'transport-case')">
+                            <div class="accessory-info">
+                                <div class="accessory-name">💼 Estuche de Transporte</div>
+                                <div class="accessory-description">Protección premium para tu drone</div>
+                            </div>
+                            <div class="accessory-price">+$800</div>
+                            <input type="checkbox" class="accessory-checkbox" id="transport-case">
+                        </div>
+                        <div class="accessory-item" onclick="toggleAccessory(this, 1500, 'gps-rtk')">
+                            <div class="accessory-info">
+                                <div class="accessory-name">🛰️ GPS RTK Premium</div>
+                                <div class="accessory-description">Precisión centimétrica garantizada</div>
+                            </div>
+                            <div class="accessory-price">+$1,500</div>
+                            <input type="checkbox" class="accessory-checkbox" id="gps-rtk">
+                        </div>
+                        <div class="accessory-item" onclick="toggleAccessory(this, 3200, 'spray-system')">
+                            <div class="accessory-info">
+                                <div class="accessory-name">💧 Sistema de Fumigación Pro</div>
+                                <div class="accessory-description">Dispersión ultraprecisa de líquidos</div>
+                            </div>
+                            <div class="accessory-price">+$3,200</div>
+                            <input type="checkbox" class="accessory-checkbox" id="spray-system">
+                        </div>
+                        <div class="accessory-item" onclick="toggleAccessory(this, 999, 'warranty-extended')">
+                            <div class="accessory-info">
+                                <div class="accessory-name">🛡️ Garantía Extendida 3 Años</div>
+                                <div class="accessory-description">Cobertura total con soporte prioritario</div>
+                            </div>
+                            <div class="accessory-price">+$999</div>
+                            <input type="checkbox" class="accessory-checkbox" id="warranty-extended">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary -->
+                <div class="config-summary">
+                    <div class="summary-title">Resumen de Tu Configuración</div>
+                    <div class="summary-item">
+                        <span>Modelo Base:</span>
+                        <span id="summaryModel">AgroX-1</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Color:</span>
+                        <span id="summaryColor">Blanco Ártico</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Accesorios:</span>
+                        <span id="summaryAccessories">Ninguno</span>
+                    </div>
+                    <div class="summary-item total">
+                        <span>TOTAL:</span>
+                        <span id="summaryTotal">$4,999</span>
+                    </div>
+                </div>
+
+                <button class="configure-button" onclick="finishConfiguration()">
+                    Agregar al Carrito
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <h2 class="section-title">Galería de Acción</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=1920&q=80')">
+                <img src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80" alt="Drone en campo">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">Tecnología en Acción</div>
+                    <div class="gallery-description">Precisión milimétrica en cada vuelo</div>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1920&q=80')">
+                <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&q=80" alt="Cultivos verdes">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">Resultados Visibles</div>
+                    <div class="gallery-description">Cultivos más saludables y productivos</div>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=1920&q=80')">
+                <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=800&q=80" alt="Drone profesional">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">Diseño Innovador</div>
+                    <div class="gallery-description">Tecnología aerodinámica de última generación</div>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1579829366248-204fe8413f31?w=1920&q=80')">
+                <img src="https://images.unsplash.com/photo-1579829366248-204fe8413f31?w=800&q=80" alt="Vista aérea">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">Cobertura Total</div>
+                    <div class="gallery-description">Mapeo completo de grandes extensiones</div>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=1920&q=80')">
+                <img src="https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=800&q=80" alt="Control remoto">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">Control Intuitivo</div>
+                    <div class="gallery-description">Interfaz profesional y fácil de usar</div>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?w=1920&q=80')">
+                <img src="https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?w=800&q=80" alt="Drone elite">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">Potencia Máxima</div>
+                    <div class="gallery-description">El AgroX-Elite en su máximo esplendor</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal" id="imageModal" onclick="closeModal()">
+        <span class="modal-close" onclick="closeModal()">×</span>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="Imagen ampliada">
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">AGRODRONES VI</div>
+        <p class="footer-text">© 2025 AgroDrones. Todos los derechos reservados.</p>
+        <p class="footer-text">Contacto: info@agrodrones.com | +591 800-AGRO</p>
+        <p class="footer-text" style="color: #00ff66; margin-top: 20px;">
+            La revolución agrícola comienza aquí.
+        </p>
+    </footer>
+
+    <script>
+        // Smooth scroll for all links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Parallax effect on hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.character-grid').forEach(grid => {
+            observer.observe(grid);
+        });
+
+        // Change drone color function
+        function changeDroneColor(droneId, color, imageUrl, element) {
+            const img = document.getElementById(droneId + '-img');
+            const colorOptions = element.parentElement.querySelectorAll('.color-option');
+            
+            // Update active state
+            colorOptions.forEach(opt => opt.classList.remove('active'));
+            element.classList.add('active');
+            
+            // Fade effect
+            img.style.opacity = '0';
+            img.style.transform = 'scale(0.95)';
+            
+            setTimeout(() => {
+                img.src = imageUrl;
+                img.style.opacity = '1';
+                img.style.transform = 'scale(1)';
+            }, 300);
+        }
+
+        // Comparison table filter
+        function showComparison(type) {
+            const buttons = document.querySelectorAll('.drone-selector');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const cols1 = document.querySelectorAll('.col-1');
+            const cols2 = document.querySelectorAll('.col-2');
+            const cols3 = document.querySelectorAll('.col-3');
+            
+            // Show all columns first
+            [...cols1, ...cols2, ...cols3].forEach(col => {
+                col.style.display = '';
+            });
+            
+            // Hide based on selection
+            if (type === '1-2') {
+                cols3.forEach(col => col.style.display = 'none');
+            } else if (type === '2-3') {
+                cols1.forEach(col => col.style.display = 'none');
+            } else if (type === '1-3') {
+                cols2.forEach(col => col.style.display = 'none');
+            }
+            
+            // Animate table
+            const table = document.getElementById('comparison-table');
+            table.style.opacity = '0';
+            table.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                table.style.transition = 'all 0.5s ease';
+                table.style.opacity = '1';
+                table.style.transform = 'translateY(0)';
+            }, 100);
+        }
+
+        // Modal functions
+        function openModal(imageUrl) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.classList.add('active');
+            modalImg.src = imageUrl;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Feature cards animation
+        const featureItems = document.querySelectorAll('.feature-item');
+        featureItems.forEach((item, index) => {
+            item.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // Gallery hover effect
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        galleryItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+                this.style.zIndex = '10';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+                this.style.zIndex = '1';
+            });
+        });
+
+        // Add transition to gallery items
+        galleryItems.forEach(item => {
+            item.style.transition = 'all 0.4s ease';
+        });
+
+        // Keyboard navigation for modal
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Performance optimization: lazy load images
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src || img.src;
+                        img.classList.add('loaded');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+
+        // Add smooth transitions to all images
+        document.querySelectorAll('img').forEach(img => {
+            img.style.transition = 'all 0.3s ease';
+        });
+
+        // ========== 3D CONFIGURATOR FUNCTIONALITY ==========
+        
+        // Configuration state
+        let config = {
+            model: 'x1',
+            modelName: 'AgroX-1',
+            basePrice: 4999,
+            color: 'Blanco Ártico',
+            accessories: [],
+            totalPrice: 4999
+        };
+
+        // 3D Rotation functionality
+        let isDragging = false;
+        let startX = 0;
+        let startY = 0;
+        let rotationX = -10;
+        let rotationY = 20;
+
+        const drone3d = document.getElementById('drone3d');
+        const drone3dImage = document.getElementById('drone3dImage');
+
+        drone3d.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            drone3d.style.cursor = 'grabbing';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            
+            const deltaX = e.clientX - startX;
+            const deltaY = e.clientY - startY;
+            
+            rotationY += deltaX * 0.5;
+            rotationX -= deltaY * 0.5;
+            
+            // Limit vertical rotation
+            rotationX = Math.max(-90, Math.min(90, rotationX));
+            
+            drone3d.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
+            
+            startX = e.clientX;
+            startY = e.clientY;
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            drone3d.style.cursor = 'grab';
+        });
+
+        // Touch support for mobile
+        drone3d.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            
+            const deltaX = e.touches[0].clientX - startX;
+            const deltaY = e.touches[0].clientY - startY;
+            
+            rotationY += deltaX * 0.5;
+            rotationX -= deltaY * 0.5;
+            
+            rotationX = Math.max(-90, Math.min(90, rotationX));
+            
+            drone3d.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
+            
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        // Auto-rotate animation
+        let autoRotate = setInterval(() => {
+            if (!isDragging) {
+                rotationY += 0.3;
+                drone3d.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
+            }
+        }, 50);
+
+        // Model selection
+        function selectModel(modelId, price, name, imageUrl) {
+            // Update active state
+            document.querySelectorAll('.model-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            event.target.closest('.model-option').classList.add('active');
+            
+            // Update config
+            config.model = modelId;
+            config.modelName = name;
+            config.basePrice = price;
+            
+            // Update 3D view with animation
+            drone3dImage.style.opacity = '0';
+            drone3dImage.style.transform = 'scale(0.8)';
+            
+            setTimeout(() => {
+                drone3dImage.src = imageUrl;
+                drone3dImage.style.opacity = '1';
+                drone3dImage.style.transform = 'scale(1)';
+            }, 300);
+            
+            // Update display
+            document.getElementById('displayModel').textContent = name;
+            
+            updateSummary();
+        }
+
+        // Color selection
+        function selectColor(element, colorName, imageUrl) {
+            // Update active state
+            document.querySelectorAll('.color-selector').forEach(sel => {
+                sel.classList.remove('active');
+            });
+            element.classList.add('active');
+            
+            // Update config
+            config.color = colorName;
+            
+            // Update 3D view with animation
+            drone3dImage.style.opacity = '0';
+            drone3dImage.style.transform = 'scale(0.9) rotateY(180deg)';
+            
+            setTimeout(() => {
+                drone3dImage.src = imageUrl;
+                drone3dImage.style.opacity = '1';
+                drone3dImage.style.transform = 'scale(1) rotateY(0deg)';
+            }, 300);
+            
+            updateSummary();
+        }
+
+        // Accessory toggle
+        function toggleAccessory(element, price, accessoryId) {
+            const checkbox = element.querySelector('.accessory-checkbox');
+            checkbox.checked = !checkbox.checked;
+            
+            element.classList.toggle('selected');
+            
+            const accessoryName = element.querySelector('.accessory-name').textContent;
+            
+            if (checkbox.checked) {
+                // Add accessory
+                config.accessories.push({
+                    id: accessoryId,
+                    name: accessoryName,
+                    price: price
+                });
+            } else {
+                // Remove accessory
+                config.accessories = config.accessories.filter(acc => acc.id !== accessoryId);
+            }
+            
+            updateSummary();
+        }
+
+        // Update summary
+        function updateSummary() {
+            // Calculate total
+            const accessoriesTotal = config.accessories.reduce((sum, acc) => sum + acc.price, 0);
+            config.totalPrice = config.basePrice + accessoriesTotal;
+            
+            // Update display
+            document.getElementById('displayPrice').textContent = `${config.totalPrice.toLocaleString()}`;
+            document.getElementById('summaryModel').textContent = config.modelName;
+            document.getElementById('summaryColor').textContent = config.color;
+            
+            // Update accessories list
+            const accessoriesList = config.accessories.length > 0 
+                ? config.accessories.map(acc => acc.name.split(' ')[0]).join(', ')
+                : 'Ninguno';
+            document.getElementById('summaryAccessories').textContent = accessoriesList;
+            
+            // Update total with animation
+            const totalElement = document.getElementById('summaryTotal');
+            totalElement.style.transform = 'scale(1.2)';
+            totalElement.style.color = '#00ff66';
+            totalElement.textContent = `${config.totalPrice.toLocaleString()}`;
+            
+            setTimeout(() => {
+                totalElement.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        // Finish configuration
+        function finishConfiguration() {
+            // Animate button
+            const button = event.target;
+            button.textContent = '✓ ¡Agregado!';
+            button.style.background = 'linear-gradient(135deg, #00cc52, #00ff66)';
+            
+            // Show configuration details
+            const details = `
+🎉 ¡Configuración Completada!
+
+📦 Modelo: ${config.modelName}
+🎨 Color: ${config.color}
+🔧 Accesorios: ${config.accessories.length}
+💰 Total: ${config.totalPrice.toLocaleString()}
+
+${config.accessories.map(acc => `   ${acc.name}: +${acc.price.toLocaleString()}`).join('\n')}
+            `;
+            
+            alert(details);
+            
+            // Reset button
+            setTimeout(() => {
+                button.textContent = 'Agregar al Carrito';
+                button.style.background = 'linear-gradient(135deg, #00ff66, #00cc52)';
+            }, 2000);
+            
+            // Celebratory animation
+            document.querySelector('.drone-3d').style.animation = 'spin 1s ease-in-out';
+            setTimeout(() => {
+                document.querySelector('.drone-3d').style.animation = '';
+            }, 1000);
+        }
+
+        // Add spin animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spin {
+                0% { transform: rotateX(-10deg) rotateY(0deg) scale(1); }
+                50% { transform: rotateX(-10deg) rotateY(360deg) scale(1.1); }
+                100% { transform: rotateX(-10deg) rotateY(720deg) scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize 3D drone rotation
+        drone3d.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
+    </script>
+</body>
+</html>
